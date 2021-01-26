@@ -31,9 +31,15 @@
     for(let image of bookImages){
       image.addEventListener('dblclick', function(event){
         event.preventDefault();
-        image.classList.add(select.favoriteBook);
         const bookId = image.getAttribute('data-id');
-        favoriteBooks.push(bookId);
+
+        if(!image.classList.contains(select.favoriteBook)){
+          favoriteBooks.push(bookId);
+          image.classList.add(select.favoriteBook);
+        } else {
+          favoriteBooks.splice(favoriteBooks.indexOf(bookId));
+          image.classList.remove(select.favoriteBook);
+        }
       });
     }
   };
