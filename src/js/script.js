@@ -5,7 +5,7 @@
     bookTemplate: '#template-book',
     booksList: '.books-list',
     favoriteBook: 'favorite',
-    bookImage: '.book__image',
+    bookImage: 'book__image',
   };
 
   const templates = {
@@ -26,22 +26,24 @@
   };
 
   const initActions = function(){
-    const bookImages = bookListWrapper.querySelectorAll(select.bookImage);
 
-    for(let image of bookImages){
-      image.addEventListener('dblclick', function(event){
-        event.preventDefault();
-        const bookId = image.getAttribute('data-id');
+    bookListWrapper.addEventListener('dblclick', function(event){
+      event.preventDefault();
+      const clickedElement = event.target.offsetParent;
 
-        if(!image.classList.contains(select.favoriteBook)){
+      if(clickedElement.classList.contains(select.bookImage)){
+
+        const bookId = clickedElement.getAttribute('data-id');
+
+        if(!clickedElement.classList.contains(select.favoriteBook)){
           favoriteBooks.push(bookId);
-          image.classList.add(select.favoriteBook);
+          clickedElement.classList.add(select.favoriteBook);
         } else {
           favoriteBooks.splice(favoriteBooks.indexOf(bookId));
-          image.classList.remove(select.favoriteBook);
+          clickedElement.classList.remove(select.favoriteBook);
         }
-      });
-    }
+      }
+    });
   };
   render();
   initActions();
